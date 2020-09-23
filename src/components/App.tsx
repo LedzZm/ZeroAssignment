@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/index.css';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, DirectionsRenderer } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 
 const pin = {
 	driver: 'Korompos',
@@ -14,29 +14,48 @@ const Map: any = withScriptjs(withGoogleMap( () =>
 		defaultZoom={12}
 		defaultCenter={{ lat: 38.018036, lng: 23.690912 }}
 		>
-		{/* Initial Marker */}
-		{<Marker
-			position={{ lat: 38, lng: 23.6 }}>
-			{<InfoWindow>
-				<div className="info-wrapper">
-					<h2 className="driver-name">Driver: {pin.driver}</h2>
-					<div className="info"># of Deliveries Done: {pin.deliveriesDone}</div>
-					<div className="info"># of Deliveries Left: {pin.deliveriesLeft}</div>
-					<div className="info">
-						<a href="#" className="route">Destination</a>
-					</div>
-				</div>
-			</InfoWindow>}
-		</Marker>}
-
+		<MarkerWithInfo />
 	</GoogleMap>
 ))
 
-class App extends React.Component {
-	showDestination = () => {
-		console.log('destination')
-	}
+const MarkerWithInfo = () => {
+	const title: Array<string> = ['Show', 'Hide']
 
+	const [visible, setVisible] = useState(false)
+	const toggleVisibility = () => { setVisible(!visible) }
+
+	return (
+		<div>
+			{/* Initial Marker */}
+			{<Marker
+				position={{ lat: 38, lng: 23.6 }}>
+				{<InfoWindow>
+					<div className="info-wrapper">
+						<h2 className="driver-name">Driver: {pin.driver}</h2>
+						<div className="info"># of Deliveries Done: {pin.deliveriesDone}</div>
+						<div className="info"># of Deliveries Left: {pin.deliveriesLeft}</div>
+						<div className="info">
+							<a href="#" onClick={toggleVisibility} className="route">Destination ({title[visible]})</a>
+						</div>
+					</div>
+				</InfoWindow>}
+			</Marker>}
+			{/* Destination Marker */}
+			{visible && <Marker
+				position={{lat: 38.018036, lng: 23.690912}}>
+				{<InfoWindow>
+					<div className="info-wrapper">
+						<h2 className="driver-name">Driver: {pin.driver}</h2>
+						<div className="info"># of Deliveries Done: {pin.deliveriesDone}</div>
+						<div className="info"># of Deliveries Left: {pin.deliveriesLeft}</div>
+					</div>
+				</InfoWindow>}
+			</Marker>}
+		</div>
+	)
+}
+
+class App extends React.Component {
 	render() {
 		return (
 			<div>
