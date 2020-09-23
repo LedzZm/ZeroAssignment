@@ -35,7 +35,7 @@ const MarkerWithInfo = () => {
 						<div className="info"># of Deliveries Done: {pin.deliveriesDone}</div>
 						<div className="info"># of Deliveries Left: {pin.deliveriesLeft}</div>
 						<div className="info">
-							<a href="#" onClick={toggleVisibility} className="route">Destination ({title[visible]})</a>
+							<a href="#" onClick={toggleVisibility} className="route">Destination ({title[visible ? 1 : 0]})</a>
 						</div>
 					</div>
 				</InfoWindow>}
