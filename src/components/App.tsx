@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/index.css';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
-
-const pin = {
-	driver: 'Korompos',
-	deliveriesDone: 5,
-	deliveriesLeft: 3,
-	destination: {lat: 38.018036, lng: 23.690912 }
-}
+import driverData from "./drivers.json"
 
 const Map: any = withScriptjs(withGoogleMap( () =>
 	<GoogleMap
@@ -27,35 +21,40 @@ const MarkerWithInfo = () => {
 	return (
 		<div>
 			{/* Initial Marker */}
-			{<Marker
-			icon={{
-					url: '/truck.svg',
-					anchor: new google.maps.Point(17, 46),
-					scaledSize: new google.maps.Size(37, 37)
-				}}
-				position={{ lat: 38, lng: 23.6 }}>
-				{<InfoWindow>
-					<div className="info-wrapper">
-						<h2 className="driver-name">Driver: {pin.driver}</h2>
-						<div className="info"># of Deliveries Done: {pin.deliveriesDone}</div>
-						<div className="info"># of Deliveries Left: {pin.deliveriesLeft}</div>
-						<div className="info">
-							<button onClick={toggleVisibility} className="route">Destination ({title[visible ? 1 : 0]})</button>
+			{driverData.map((driver) => (
+				<Marker
+					key={driver.name}
+					icon={{
+						url: '/truck.svg',
+						anchor: new google.maps.Point(17, 46),
+						scaledSize: new google.maps.Size(37, 37)
+					}}
+					position={ driver.position }>
+					{<InfoWindow>
+						<div className="info-wrapper">
+							<h2 className="driver-name">Driver: {driver.name}</h2>
+							{/* <div className="info"># of Deliveries Done: {pin.deliveriesDone}</div> */}
+							{/* <div className="info"># of Deliveries Left: {pin.deliveriesLeft}</div> */}
+							<div className="info">
+								<button onClick={toggleVisibility} className="route">Destination ({title[visible ? 1 : 0]})</button>
+							</div>
 						</div>
-					</div>
-				</InfoWindow>}
-			</Marker>}
+					</InfoWindow>}
+				</Marker>
+			))}
 			{/* Destination Marker */}
-			{visible && <Marker
-				position={{lat: 38.018036, lng: 23.690912}}>
+			{driverData.map((driver) => (
+			<Marker
+				position={ driver.destination }>
 				{<InfoWindow>
 					<div className="info-wrapper">
-						<h2 className="driver-name">Driver: {pin.driver}</h2>
-						<div className="info"># of Deliveries Done: {pin.deliveriesDone}</div>
-						<div className="info"># of Deliveries Left: {pin.deliveriesLeft}</div>
+						{/* <h2 className="driver-name">Driver: {pin.driver}</h2> */}
+						{/* <div className="info"># of Deliveries Done: {pin.deliveriesDone}</div> */}
+						{/* <div className="info"># of Deliveries Left: {pin.deliveriesLeft}</div> */}
 					</div>
 				</InfoWindow>}
-			</Marker>}
+			</Marker>
+			))}
 		</div>
 	)
 }
