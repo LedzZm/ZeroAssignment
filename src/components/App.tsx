@@ -28,6 +28,11 @@ const MarkerWithInfo = () => {
 		<div>
 			{/* Initial Marker */}
 			{<Marker
+			icon={{
+					url: '/truck.svg',
+					anchor: new google.maps.Point(17, 46),
+					scaledSize: new google.maps.Size(37, 37)
+				}}
 				position={{ lat: 38, lng: 23.6 }}>
 				{<InfoWindow>
 					<div className="info-wrapper">
@@ -35,7 +40,7 @@ const MarkerWithInfo = () => {
 						<div className="info"># of Deliveries Done: {pin.deliveriesDone}</div>
 						<div className="info"># of Deliveries Left: {pin.deliveriesLeft}</div>
 						<div className="info">
-							<a href="#" onClick={toggleVisibility} className="route">Destination ({title[visible ? 1 : 0]})</a>
+							<button onClick={toggleVisibility} className="route">Destination ({title[visible ? 1 : 0]})</button>
 						</div>
 					</div>
 				</InfoWindow>}
@@ -63,8 +68,8 @@ class App extends React.Component {
 					loadingElement={<div style={{ height: '100%' }} />}
 					containerElement={<div style={{ height: '400px' }} />}
 					mapElement={<div style={{ height: `100%` }} />}
-					googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAmKswVHMRx15F4ltvvmgX3P3JoLgNCUIM">
-				</Map>
+					googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${ process.env.REACT_APP_GOOGLE_API_KEY }`}
+				/>
 			</div>
 		);
 	}
