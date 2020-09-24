@@ -1,0 +1,73 @@
+.loading_element, .map_element {
+    height: 100%;
+}
+
+.container_element {
+    height: 100vh;
+}
+
+.gm-style .gm-style-iw-c {
+    display: flex;
+    align-items: center;
+    border-radius: 80px;
+    border-top-right-radius: 0;
+    height: 80px;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    overflow: visible;
+}
+
+.gm-ui-hover-effect {
+    background: #fff;
+    opacity: 1;
+}
+
+.gm-style .gm-style-iw-t::after {
+    display: none;
+}
+
+.info_wrapper {
+    display: flex;
+    align-items: center;
+    width: 500px;
+    justify-content: space-between;
+}
+
+.driver_name {
+    margin: 0 0 5px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #104d46;
+}
+
+.deliveries {
+    margin: 0;
+    color: #333;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.info_window_icon {
+    width: 50px;
+}
+
+.toggle_destination {
+    border-radius: 100%;
+    width: 64px;
+    height: 64px;
+    background: #104d46;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.toggle_destination:hover {
+    background: #176b61;
+}
+
+.toggle_destination:active {
+    text-shadow: -1px -1px 0px #777, -1px -1px 0px #777;
+    box-shadow: inset 1px 1px 4px #222;
+}
