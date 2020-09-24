@@ -4,34 +4,54 @@
         "position": { "lng": 23.6, "lat": 38.08 },
         "deliveriesDone": 5,
         "deliveriesLeft": 3,
-        "destination": { "lng": 23.5, "lat": 38.09 }
+        "destination": {
+            "lng": 23.5,
+            "lat": 38.09,
+            "address": "Destination - 1"
+        }
     },
     {
         "name": "Peter",
         "position": { "lng": 23.61, "lat": 38.04 },
         "deliveriesDone": 5,
         "deliveriesLeft": 3,
-        "destination": { "lng": 23.41, "lat": 38.04 }
+        "destination": {
+            "lng": 23.41,
+            "lat": 38.04,
+            "address": "Destination - 2"
+        }
     },
     {
         "name": "Tony",
         "position": { "lng": 23.63, "lat": 38.05 },
         "deliveriesDone": 5,
         "deliveriesLeft": 3,
-        "destination": { "lng": 23.83, "lat": 38.05 }
+        "destination": {
+            "lng": 23.83,
+            "lat": 38.05,
+            "address": "Destination - 3"
+        }
     },
     {
         "name": "Steve",
         "position": { "lng": 23.64, "lat": 38.05 },
         "deliveriesDone": 5,
         "deliveriesLeft": 3,
-        "destination": { "lng": 23.92, "lat": 38.15 }
+        "destination": {
+            "lng": 23.92,
+            "lat": 38.15,
+            "address": "Destination - 4"
+        }
     },
     {
         "name": "Nick",
         "position": { "lng": 23.65, "lat": 38.02 },
         "deliveriesDone": 5,
         "deliveriesLeft": 3,
-        "destination": { "lng": 23.75, "lat": 37.92 }
+        "destination": {
+            "lng": 23.75,
+            "lat": 37.92,
+            "address": "Destination - 5"
+        }
     }
 ]
