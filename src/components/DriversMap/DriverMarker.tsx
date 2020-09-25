@@ -27,8 +27,8 @@ export const DriverMarker = ( { driver, onTargetShow } : DriverMarkerProps) : JS
 
 	// Toggle destination marker visibility and change map center state.
 	const showDestination = (newCenterCoordinates: any) => {
+		if (!destinationVisible) onTargetShow(newCenterCoordinates)
 		setDestinationVisible(!destinationVisible)
-		onTargetShow(newCenterCoordinates)
 	}
 
     return (
