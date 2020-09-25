@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/index.css';
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps"
 import { DriverNetwork } from "./Drivers/DriverNetwork";
 
-const Map: any = withScriptjs(withGoogleMap( () =>
-	<GoogleMap
+const Map: any = withScriptjs(withGoogleMap( () : JSX.Element => {
+
+	const [mapCenter, setMapCenter] = useState(new google.maps.LatLng(38.018036, 23.67));
+
+	return (
+		<GoogleMap
 		defaultZoom={12}
-		defaultCenter={{ lat: 38.018036, lng: 23.67 }}
-		center={{ lat: 40, lng: 23.67 }}
+		center={mapCenter}
 		>
-		<DriverNetwork />
-	</GoogleMap>
-))
+			<DriverNetwork
+				setMapCenter={setMapCenter}
+			 />
+		</GoogleMap>
+	)
+}))
 
 const App = () => {
 	return (

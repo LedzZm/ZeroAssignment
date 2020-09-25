@@ -15,20 +15,21 @@ export interface IDriver {
 }
 
 type DriverMarkerProps = {
-    driver: IDriver
+	driver: IDriver
+	onTargetShow: (coordinates: any) => void;
 }
 
-export const DriverMarker = ( { driver } : DriverMarkerProps) : JSX.Element => {
+export const DriverMarker = ( { driver, onTargetShow } : DriverMarkerProps) : JSX.Element => {
 	const title: Array<string> = ['Show', 'Hide']
 
-	const [visible, setVisible] = useState(false)
-	const [selectedDriver, setSelectedDriver] = useState<IDriver | null>(null);
+	const [destinationVisible, setDestinationVisible] = useState(false)
+	const [visibleInfo, setVisibleInfo] = useState(false);
 
-	const toggleVisibility = () => {
-		setVisible(!visible)
-		// recenterMap();
+	// Toggle destination marker visibility and change map center state.
+	const showDestination = (newCenterCoordinates: any) => {
+		setDestinationVisible(!destinationVisible)
+		onTargetShow(newCenterCoordinates)
 	}
-	const selectDriver = (driver: IDriver | null) => { setSelectedDriver(driver) }
 
     return (
 		<div>
@@ -40,31 +41,32 @@ export const DriverMarker = ( { driver } : DriverMarkerProps) : JSX.Element => {
                     scaledSize: new google.maps.Size(35, 35)
                 }}
                 position={ driver.position }
-                onClick={selectDriver.bind(this, driver)}
-                >
+                onClick={ () => setVisibleInfo(true) }
+            >
             </Marker>}
-            {selectedDriver && <InfoWindow
-				position={selectedDriver.position}
-				onCloseClick={selectDriver.bind(this, null)}>
+            {driver && visibleInfo && <InfoWindow
+				position={driver.position}
+				onCloseClick={ () => setVisibleInfo(false) }
+			>
 				<div className="info_wrapper">
 					<img src={truckSvg} className="info_window_icon" alt="truck"/>
 					<div>
-						<h2 className="driver_name">Driver: {selectedDriver.name}</h2>
-						<p className="deliveries"># of Deliveries Done: {selectedDriver.deliveriesDone}</p>
-						<p className="deliveries"># of Deliveries Left: {selectedDriver.deliveriesLeft}</p>
+						<h2 className="driver_name">Driver: {driver.name}</h2>
+						<p className="deliveries"># of Deliveries Done: {driver.deliveriesDone}</p>
+						<p className="deliveries"># of Deliveries Left: {driver.deliveriesLeft}</p>
 					</div>
 					<div>
-						<h2 className="driver_name">{selectedDriver.destination.address}</h2>
-						<p className="deliveries">Latitude {selectedDriver.destination.lat}</p>
-						<p className="deliveries">Longitude {selectedDriver.destination.lng}</p>
+						<h2 className="driver_name">{driver.destination.address}</h2>
+						<p className="deliveries">Latitude {driver.destination.lat}</p>
+						<p className="deliveries">Longitude {driver.destination.lng}</p>
 					</div>
-					<button onClick={toggleVisibility} className="toggle_destination">{title[visible ? 1 : 0]}</button>
+					<button onClick={ () => showDestination(driver.destination) } className="toggle_destination">{title[destinationVisible ? 1 : 0]}</button>
 				</div>
 			</InfoWindow>}
 
 			{/* Destination Marker */}
-			{selectedDriver && visible && <Marker
-				position={ selectedDriver.destination }
+			{driver && visibleInfo && destinationVisible && <Marker
+				position={ driver.destination }
 				animation={ google.maps.Animation.DROP }>
 			</Marker>}
         </div>
